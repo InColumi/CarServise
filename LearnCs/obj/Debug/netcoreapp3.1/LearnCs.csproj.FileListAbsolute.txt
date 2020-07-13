@@ -1,0 +1,13 @@
+C:\Users\InColumi\Desktop\Projects\LearnCs\LearnCs\bin\Debug\netcoreapp3.1\LearnCs.exe
+C:\Users\InColumi\Desktop\Projects\LearnCs\LearnCs\bin\Debug\netcoreapp3.1\LearnCs.deps.json
+C:\Users\InColumi\Desktop\Projects\LearnCs\LearnCs\bin\Debug\netcoreapp3.1\LearnCs.runtimeconfig.json
+C:\Users\InColumi\Desktop\Projects\LearnCs\LearnCs\bin\Debug\netcoreapp3.1\LearnCs.runtimeconfig.dev.json
+C:\Users\InColumi\Desktop\Projects\LearnCs\LearnCs\bin\Debug\netcoreapp3.1\LearnCs.dll
+C:\Users\InColumi\Desktop\Projects\LearnCs\LearnCs\bin\Debug\netcoreapp3.1\LearnCs.pdb
+C:\Users\InColumi\Desktop\Projects\LearnCs\LearnCs\obj\Debug\netcoreapp3.1\LearnCs.csproj.CoreCompileInputs.cache
+C:\Users\InColumi\Desktop\Projects\LearnCs\LearnCs\obj\Debug\netcoreapp3.1\LearnCs.AssemblyInfoInputs.cache
+C:\Users\InColumi\Desktop\Projects\LearnCs\LearnCs\obj\Debug\netcoreapp3.1\LearnCs.AssemblyInfo.cs
+C:\Users\InColumi\Desktop\Projects\LearnCs\LearnCs\obj\Debug\netcoreapp3.1\LearnCs.dll
+C:\Users\InColumi\Desktop\Projects\LearnCs\LearnCs\obj\Debug\netcoreapp3.1\LearnCs.pdb
+C:\Users\InColumi\Desktop\Projects\LearnCs\LearnCs\obj\Debug\netcoreapp3.1\LearnCs.genruntimeconfig.cache
+C:\Users\InColumi\Desktop\Projects\LearnCs\LearnCs\obj\Debug\netcoreapp3.1\LearnCs.csprojAssemblyReference.cache
