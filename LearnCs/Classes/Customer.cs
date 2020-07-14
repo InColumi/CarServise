@@ -18,18 +18,22 @@ namespace LearnCs.Classes
             Car = car;
         }
 
+        public void TakeMoney(float price)
+        {
+            _money += price;
+        }
+
         public void BayReparingCar(float price)
         {
             float amount = _money - price;
             if(amount >= 0)
             {
                 _money = amount;
-                Car.Raparing();
-                Console.WriteLine("Ремонт прошел успешно.");
+                Console.WriteLine("Ремонт оплачен");
             }
             else
             {
-                Console.WriteLine($"Недостаточно денег у клиента {Name}.");
+                Console.WriteLine($"Недостаточно денег для ремонта у {Name}.");
             }
         }
     }

@@ -9,28 +9,6 @@ namespace LearnCs.Classes
         private Random _random;
         private Dictionary<Detail, int> _countDetails;
 
-        public Warehouse(Detail[] details, int maxNumber)
-        {
-            _random = new Random();
-            if(maxNumber > 0)
-            {
-                _countDetails = new Dictionary<Detail, int>();
-                foreach(var detail in details)
-                {
-                    _countDetails.Add(detail, _random.Next(1, maxNumber + 1));
-                }
-            }
-        }
-
-        public Warehouse(Detail detail, int number)
-        {
-            if(number > 0)
-            {
-                _countDetails = new Dictionary<Detail, int>();
-                _countDetails.Add(detail, number);
-            }
-        }
-
         public Warehouse()
         {
             _countDetails = new Dictionary<Detail, int>();
@@ -44,6 +22,25 @@ namespace LearnCs.Classes
                 {
                     return true;
                 }
+            }
+            return false;
+        }
+
+        public bool CheckNumberDetails(string name, int numberOfDetails)
+        {
+            if(FindByName(name))
+            {
+                foreach(var detail in _countDetails)
+                {
+                    if(detail.Key.Name == name)
+                    {
+                        return detail.Value >= numberOfDetails;
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Такой детали нет.");
             }
             return false;
         }
@@ -83,7 +80,7 @@ namespace LearnCs.Classes
                             {
                                 case "Take":
                                     int numberTake = detail.Value - number;
-                                    if(numberTake > 0)
+                                    if(numberTake >= 0)
                                     {
                                         availabilityDetails = true;
                                         _countDetails[detail.Key] = numberTake;
@@ -134,21 +131,6 @@ namespace LearnCs.Classes
             {
                 detail.Key.ShowInfo();
                 Console.WriteLine($" В наличии: {detail.Value}");
-            }
-        }
-
-        public void ShowInfosByName(string name)
-        {
-            if(FindByName(name))
-            {
-                foreach(var detail in _countDetails)
-                {
-                    if(detail.Key.Name == name)
-                    {
-                        detail.Key.ShowInfo();
-                        Console.WriteLine($"В наличии: {detail.Value}");
-                    }
-                }
             }
         }
     }
