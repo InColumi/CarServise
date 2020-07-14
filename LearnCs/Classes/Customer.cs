@@ -1,40 +1,46 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace LearnCs.Classes
 {
     class Customer
     {
-        public string Name { get; private set; }
         private float _money;
+        private float _moneyToPay;
+        public string Name { get; private set; }
+        public string TextBreakage { get; private set; }
+        public int NumberOfBreakage { get; private set; }
 
-        public Car Car { get; private set; }
-
-        public Customer(string name, float money, Car car)
+        public Customer(string name, string textBreakage, float money, Random rand)
         {
             Name = name;
             _money = money;
-            Car = car;
+            TextBreakage = textBreakage;
+            NumberOfBreakage = rand.Next(1, 5);
         }
 
-        public void TakeMoney(float price)
+        public bool CheckSelvency(Detail detail, float moneyForWork)
         {
-            _money += price;
-        }
-
-        public void BayReparingCar(float price)
-        {
-            float amount = _money - price;
-            if(amount >= 0)
+            _moneyToPay = detail.Price * NumberOfBreakage + moneyForWork;
+            if(_moneyToPay <= _money)
             {
-                _money = amount;
-                Console.WriteLine("Ремонт оплачен");
+                return true;
             }
             else
             {
-                Console.WriteLine($"Недостаточно денег для ремонта у {Name}.");
+                _moneyToPay = 0;
+                return false;
             }
+        }
+
+        public void ToPay()
+        {
+            _money -= _moneyToPay;
+            _moneyToPay = 0;
+        }
+
+        public void ShowInfo()
+        {
+            Console.WriteLine($"У клиента {Name} проблема с {TextBreakage}. Для починки нужно {NumberOfBreakage} деталей.");
         }
     }
 }

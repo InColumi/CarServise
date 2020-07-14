@@ -6,19 +6,51 @@ namespace LearnCs.Classes
 {
     class Warehouse
     {
-        private Random _random;
-        private Dictionary<Detail, int> _countDetails;
+        private List<BoxWithDetails> _boxWithDetails;
 
         public Warehouse()
         {
-            _countDetails = new Dictionary<Detail, int>();
+            _boxWithDetails = new List<BoxWithDetails>();
+            GenarateBoxes();
         }
 
-        public bool FindByName(string name)
+        private void GenarateBoxes()
         {
-            foreach(var detail in _countDetails)
+            Random rand = new Random();
+
+            _boxWithDetails.Add(new BoxWithDetails(new Detail(rand.Next(10, 101), "Воздушный фильтр"), rand.Next(1, 50)));
+            _boxWithDetails.Add(new BoxWithDetails(new Detail(rand.Next(10, 101), "Передние стойки"), rand.Next(1, 5)));
+            _boxWithDetails.Add(new BoxWithDetails(new Detail(rand.Next(10, 101), "Задние стойки"), rand.Next(1, 50)));
+            _boxWithDetails.Add(new BoxWithDetails(new Detail(rand.Next(10, 101), "Суппорты"), rand.Next(1, 5)));
+            _boxWithDetails.Add(new BoxWithDetails(new Detail(rand.Next(10, 101), "Капот"), rand.Next(1, 5)));
+            _boxWithDetails.Add(new BoxWithDetails(new Detail(rand.Next(10, 101), "Бампер"), rand.Next(1, 5)));
+            _boxWithDetails.Add(new BoxWithDetails(new Detail(rand.Next(10, 101), "Лобовое стекло"), rand.Next(1, 5)));
+            _boxWithDetails.Add(new BoxWithDetails(new Detail(rand.Next(10, 101), "Передние сиденья"), rand.Next(1, 50)));
+            _boxWithDetails.Add(new BoxWithDetails(new Detail(rand.Next(10, 101), "Задние сиденья"), rand.Next(1, 5)));
+            _boxWithDetails.Add(new BoxWithDetails(new Detail(rand.Next(10, 101), "Двигатель"), rand.Next(1, 5)));
+            _boxWithDetails.Add(new BoxWithDetails(new Detail(rand.Next(10, 101), "Заднее стекло"), rand.Next(1, 50)));
+        }
+
+        public int FindIndexDetailByName(string name)
+        {
+            if(CheckAvailabilityByName(name))
             {
-                if(detail.Key.Name == name)
+                for(int i = 0; i < _boxWithDetails.Count; i++)
+                {
+                    if(_boxWithDetails[i].Detail.Name == name)
+                    {
+                        return i;
+                    }
+                }
+            }
+            throw new Exception("Такой детали на складе нет.");
+        }
+
+        public bool CheckAvailabilityByName(string name)
+        {
+            foreach(var detail in _boxWithDetails)
+            {
+                if(detail.Detail.Name == name)
                 {
                     return true;
                 }
@@ -26,111 +58,43 @@ namespace LearnCs.Classes
             return false;
         }
 
-        public bool CheckNumberDetails(string name, int numberOfDetails)
+        public bool CheckNumbersDetails(string name, int numberOfDetails)
         {
-            if(FindByName(name))
+            int indexDetail = FindIndexDetailByName(name);
+            if(indexDetail >= 0)
             {
-                foreach(var detail in _countDetails)
-                {
-                    if(detail.Key.Name == name)
-                    {
-                        return detail.Value >= numberOfDetails;
-                    }
-                }
+                return _boxWithDetails[indexDetail].CheckNumbersDetailsInBox(numberOfDetails);
             }
             else
             {
-                Console.WriteLine("Такой детали нет.");
+                return false;
             }
-            return false;
         }
 
-        public float GetPriceByName(string name)
+        public Detail GetDetailByName(string name)
         {
-            if(FindByName(name))
-            {
-                foreach(var detail in _countDetails)
-                {
-                    if(detail.Key.Name == name)
-                    {
-                        return detail.Key.Price;
-                    }
-                }
-            }
-            else
-            {
-                Console.WriteLine("Такой детали нет.");
-            }
-            return 0;
+            int indexDetails = FindIndexDetailByName(name);
+            return _boxWithDetails[indexDetails].Detail;
+        }
+              
+        public void TakeDetails(string name, int numberOfDetails)
+        {
+            int indexDetails = FindIndexDetailByName(name);
+            _boxWithDetails[indexDetails].TakeDetailsFromBox(numberOfDetails);
         }
 
-        private bool PreparationToApply(string name, int number, string operation)
+        public void AddDetailsToBox(string name, int numberOfDetails)
         {
-            bool resalt = false;
-            bool availabilityDetails = false;
-            if(FindByName(name))
-            {
-                foreach(var detail in _countDetails)
-                {
-                    if(detail.Key.Name == name)
-                    {
-                        if(number > 0)
-                        {
-                            switch(operation)
-                            {
-                                case "Take":
-                                    int numberTake = detail.Value - number;
-                                    if(numberTake >= 0)
-                                    {
-                                        availabilityDetails = true;
-                                        _countDetails[detail.Key] = numberTake;
-                                        resalt = true;
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Деталей недостаточно.");
-                                    }
-                                    break;
-                                case "Add":
-                                    _countDetails[detail.Key] += number;
-                                    resalt = true;
-                                    break;
-                            }
-                        }
-                        break;
-                    }
-                }
-            }
-
-            if(availabilityDetails == false)
-            {
-                Console.WriteLine($"Деталь {name} отсутствует.");
-            }
-
-            return resalt;
-        }
-
-        public bool TakeDetails(string name, int number)
-        {
-            return PreparationToApply(name, number, "Take");
-        }
-
-        public bool AddDetailsByName(string name, int number)
-        {
-            return PreparationToApply(name, number, "Add");
-        }
-
-        public void AddNewDetail(Detail detail, int number)
-        {
-            _countDetails.Add(detail, number);
+            int indexDetails = FindIndexDetailByName(name);
+            _boxWithDetails[indexDetails].AddToCountDetails(numberOfDetails);
         }
 
         public void ShowInfo()
         {
-            foreach(var detail in _countDetails)
+            Console.WriteLine("На складе:");
+            foreach(var currentBox in _boxWithDetails)
             {
-                detail.Key.ShowInfo();
-                Console.WriteLine($" В наличии: {detail.Value}");
+                currentBox.ShowInfo();
             }
         }
     }

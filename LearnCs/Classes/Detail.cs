@@ -17,7 +17,7 @@ namespace LearnCs.Classes
 
         public void ShowInfo()
         {
-            Console.Write($"Название детали: {Name}. Стоимость детали: {Price}.");
+            Console.Write($"\t\tНазвание детали: {Name}. Стоимость детали: {Price} за штуку. ");
         }
     }
 }
